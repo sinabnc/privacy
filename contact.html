@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +13,15 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet" />
 </head>
+
 <body>
     <br><br><br><br><br><br><br>
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <img src="assets/img/portfolio/blue icon.png" width="150" height="100" alt="">
-            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
@@ -82,55 +86,41 @@
                 <div class="col-lg-4">
                     <h4 class="text-uppercase mb-4">Abo glambo</h4>
                     <p class="lead mb-0">
-                        <a href="http://startbootstrap.com">Abo glambo</a>
-                        .
+                        <a href="http://startbootstrap.com">Abo glambo</a>.
                     </p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Include EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <!-- Include SMTP.js -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script type="text/javascript">
-        (function(){
-            emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
-        })();
-    </script>
+        document.getElementById('contactForm').addEventListener('submit', function (event) {
+            event.preventDefault();
 
-    <!-- jQuery and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            // Collect form data
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var address = document.getElementById('address').value;
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
+            // Send email using SMTP.js
+            Email.send({
+    Host: "smtp.elasticemail.com",
+    Username: "sinabnc7@gmail.com",
+    Password: "0F80A4BD8228081DAC82A50DA5B2C8D5462C",
+    To: 'aboglumboapp@gmail.com',
+    From: "sinabnc7@gmail.com",
+    Subject: "New Contact Form Submission",
+    Body: `Name: ${name} <br/> Email: ${email} <br/> Phone: ${phone} <br/> Address: ${address}`,
+ 
+}).then(
+    message => alert(message)
+);
 
-            // Get the form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-
-            // Prepare the data to be sent
-            const templateParams = {
-                name: name,
-                email: email,
-                phone: phone,
-                address: address,
-                to_email: 'sinabnc7@gmail.com' // Send the email to this address
-            };
-
-            // Send the email using EmailJS
-            emailjs.send('service_h3ucjvs', 'template_x2r8qan', templateParams)
-                .then(function(response) {
-                    document.getElementById('message').innerHTML = '<div class="alert alert-success">Message sent successfully!</div>';
-                    document.getElementById('contactForm').reset(); // Reset the form
-                }, function(error) {
-                    document.getElementById('message').innerHTML = '<div class="alert alert-danger">Failed to send message. Please try again later.</div>';
-                });
         });
     </script>
 </body>
+
 </html>
